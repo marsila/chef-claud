@@ -1,4 +1,4 @@
-import shefClaude from "./assets/shef-claude.png"
+ import shefClaude from "./src/assets/img/chef-claude.png"
 
 export default function Header(){
     return(

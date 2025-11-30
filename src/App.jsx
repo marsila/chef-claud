@@ -1,5 +1,7 @@
-import Header from "./Header"
-import MainSection from "./MainSection"
+import Header from "../Header"
+import MainSection from "../MainSection"
+
+
 
 
 
@@ -7,7 +9,7 @@ function App() {
 
   return (
     <>
-     <Header/> 
+     <Header/>
      <MainSection/>
     </>
   )
