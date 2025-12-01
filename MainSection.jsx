@@ -9,18 +9,20 @@ export default function MainSection(){
 
     
 
-    const handleFormSubmit = (e)=>{
-        e.preventDefault();        
+    const handleFormSubmit = (formData)=>{
+        //e.preventDefault();        
         console.log(ingredients);
         //FormData API
-        const formData = new FormData(e.currentTarget);
+        // const formData = new FormData(e.currentTarget);
         const newIngredient = formData.get("ingredient");        
         setIngredients(prevIngrediants => [...prevIngrediants,newIngredient]);
-        e.currentTarget.reset();        
+        // e.currentTarget.reset();   
+        
+        
     }
     return(
         <>
-        <form  onSubmit={handleFormSubmit} className="add-ingredient-form" >
+        <form  action={handleFormSubmit} className="add-ingredient-form" >
             <input type="text" name="ingredient" id="ingredient" placeholder="e.g. oregano"/>
             <button type="submit">Add ingreadient</button>
         </form>
