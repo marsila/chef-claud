@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function MainSection(){
 
-    const [ingredients, setIngredients] = useState(["Chicken", "Oregano", "Tomatoes"]);
+    const [ingredients, setIngredients] = useState([]);
     const ingredientsListItems = ingredients.map((item, index) => (
         <li key={index}>{item}</li>
     ));
@@ -12,7 +12,11 @@ export default function MainSection(){
     const handleFormSubmit = (e)=>{
         e.preventDefault();        
         console.log(ingredients);
-        
+        //FormData API
+        const formData = new FormData(e.currentTarget);
+        const newIngredient = formData.get("ingredient");        
+        setIngredients(prevIngrediants => [...prevIngrediants,newIngredient]);
+        e.currentTarget.reset();        
     }
     return(
         <>
