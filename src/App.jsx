@@ -1,5 +1,5 @@
-import Header from "../Header"
-import MainSection from "../MainSection"
+import Header from "./Header"
+import MainSection from "./MainSection"
 
 
 
