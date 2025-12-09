@@ -3,7 +3,6 @@ import RecipeCode from "./recipeCode";
 import IngredientList from "./IngredientList";
 import { generateContent } from "./ai";
 
-
 export default function MainSection() {
 
   const [recipe, setRecipe] = useState('');
