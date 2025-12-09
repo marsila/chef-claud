@@ -1,19 +1,44 @@
 import { useState } from "react";
+import RecipeCode from "./recipeCode";
+import IngredientList from "./IngredientList";
+import { generateContent } from "./ai";
+
 
 export default function MainSection() {
-  const [ingredients, setIngredients] = useState([]);
-  const ingredientsListItems = ingredients.map((item, index) => (
-    <li key={index}>{item}</li>
-  ));
+
+  const [recipe, setRecipe] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const [ingredients, setIngredients] = useState([
+    "all the main spices",
+    "pasta",
+    "ground beef",
+    "tomato paste",
+  ]);  
+
+  
 
   const handleFormSubmit = (formData) => {
     //get the form object
-    console.log(Object.fromEntries(formData));
+    //console.log(Object.fromEntries(formData));
     const newIngredient = formData.get("ingredient");
     if (newIngredient.trim() !== "") {
       setIngredients((prevIngrediants) => [...prevIngrediants, newIngredient]);
     }
   };
+
+  async function getRecipe() {
+    setLoading(true);
+    setError(null);
+    const recipeMarkdown = await generateContent(ingredients);
+    setRecipe(recipeMarkdown);
+    setLoading(prev => !prev);
+    
+    
+  };
+
+
   return (
     <>
       <form action={handleFormSubmit} className="add-ingredient-form">
@@ -25,23 +50,17 @@ export default function MainSection() {
         />
         <button type="submit">Add ingreadient</button>
       </form>
-      <section>
-        {ingredients.length > 0 && (
-          <div>
-            <h2>Ingredients on hand:</h2>
-            <ul className="ingredients-list" aria-live="polite">
-              {ingredientsListItems}
-            </ul>
-          </div>
-        )}
-        <div className="get-recipe-container">
-          <div>
-            <h3>Ready for a recipe?</h3>
-            <p>Generate a recipe from your list of ingredients.</p>
-          </div>
-          <button>Get a recipe</button>
-        </div>
-      </section>
+
+      {ingredients.length > 0 && (
+        <IngredientList
+          ingredients={ingredients}
+          getRecipe={getRecipe}
+          loading ={loading}
+
+        />
+      )}
+      {error && <p style={{ color: 'red', marginTop: '15px' }}>Error: {error}</p>}
+      {recipe && <RecipeCode recipe={recipe} />}
     </>
   );
 }
