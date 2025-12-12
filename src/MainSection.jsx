@@ -1,7 +1,8 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import RecipeCode from "./recipeCode";
 import IngredientList from "./IngredientList";
 import { generateContent } from "./ai";
+import { Behavior } from "@google/genai";
 
 export default function MainSection() {
 
@@ -17,6 +18,18 @@ export default function MainSection() {
   ]);  
 
   const recipeSection = useRef(null);
+
+  useEffect(() => {
+    if(recipe !==""  && recipeSection.current !== null){
+      recipeSection.current.scrollIntoView({behavior:"smooth"});
+      // Another way in case the upper line didn't work:
+      // const yCoord = recipeSection.current.getBoundingClientRect().top + window.scrollY
+      //       window.scroll({
+      //           top: yCoord,
+      //           behavior: "smooth"
+      //       })
+    }
+  }, [recipe])
 
   
 
