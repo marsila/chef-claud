@@ -1,7 +1,6 @@
 export default function IngredientList(props) {
-  const ingredients = props.ingredients;
-  const getRecipe = props.getRecipe;
-  const loading = props.loading;
+  const {ingredients ,getRecipe, loading, ref}= props;
+
   console.log(loading);
   
   const ingredientsListItems = ingredients.map((item, index) => (
@@ -15,7 +14,7 @@ export default function IngredientList(props) {
       </ul>
       {ingredients.length > 3 && (
         <div className="get-recipe-container">
-          <div>
+          <div ref={ref}>
             <h3>Ready for a recipe?</h3>
             <p>Generate a recipe from your list of ingredients.</p>
           </div>

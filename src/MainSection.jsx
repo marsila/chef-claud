@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import RecipeCode from "./recipeCode";
 import IngredientList from "./IngredientList";
 import { generateContent } from "./ai";
@@ -15,6 +15,8 @@ export default function MainSection() {
     "ground beef",
     "tomato paste",
   ]);  
+
+  const recipeSection = useRef(null);
 
   
 
@@ -52,6 +54,7 @@ export default function MainSection() {
 
       {ingredients.length > 0 && (
         <IngredientList
+          ref = {recipeSection}
           ingredients={ingredients}
           getRecipe={getRecipe}
           loading ={loading}
